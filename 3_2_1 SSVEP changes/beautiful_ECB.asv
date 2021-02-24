@@ -1,0 +1,38 @@
+function [y_range, h] = beautiful_EOB(time, EOB_mean, EOB_stderr,FBandName,nbplot,totalgroup,totalstat)
+% apply toolbox of raacambell for significance annotation
+markertypes = {'.'};
+lmtype = markertypes{1};
+hold on
+count=1;
+for idx = 1:2:9
+    
+%     if nbplot==3
+%         Lstd=zeros(size(EOB_mean(idx)));
+%         Hstd=EOB_stderr(idx);
+%     else
+%         Lstd=EOB_stderr(idx);
+%         Hstd=zeros(size(EOB_mean(idx)));
+%     end
+    errorbar(time(count), EOB_mean(count), EOB_mean(idx), EOB_mean(idx), lmtype, 'color', 'k', 'linewidth', 2, 'markers',20);
+end
+xlim([0,01])
+set(gca,'xtick',0:10)
+set(gca,'xticklabel',{[],'1','(SSVEP)','2','(NFT)','3','night','4','(NFT+SSVEP£©','5',[]})
+
+% plot(time(1:5), EOB_mean(1:5),'k-','Linewidth',2);
+% plot(time(6:10), EOB_mean(6:10),'k-','Linewidth',2);
+% b=polyfit(time,EOB_mean',1);
+% line=b(2)+b(1)*time;
+% plot(time,line,'-','Color',[0.7 0.7 0.7],'Linewidth',2)
+sigstar(totalgroup{nbplot,:},totalstat{nbplot,1})
+hold off
+xlabel('Basline Session')
+ylabel('relative amplitude')
+% 'Interpreter','latex'
+title(FBandName{nbplot},'fontsize',12);
+% xlabel(name.xlabel); ylabel(name.ylabel);
+% ylim([0 1.1*max(max_mean)]);
+% y_range = 1.1*max(max_mean);
+% set(gca, 'fontsize', 12);
+% box off;
+end
